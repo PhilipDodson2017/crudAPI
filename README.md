@@ -1,4 +1,4 @@
-### Building and Running the Application
+### Building and Running the Application  (works ✅)
 
 Build and run unit tests with 
 
@@ -14,13 +14,13 @@ Hello world API call
 
 http://127.0.0.1:8080/customers/hello
 
-### Acceptance Testing
+### Acceptance Testing (not working 😞)
 
 Acceptance tests are not currently working due to import issues.  However, once this is resolved, you can run them
 by configuring a run configuration in your IDE of choice to run CucumberTestRunner.java.  Additionally, these can
 be run with a maven command, and integrated into CI/CD pipelines using that maven command.
 
-### Instrumentation/Observability/Logging
+### Instrumentation/Observability/Logging  (works ✅)
 
 -Logging library for this repo is log4j.  
 -These logs should be forwarded to a logging tool such as Splunk, ELK or Cloudwatch.  
@@ -30,7 +30,7 @@ However, Cloudwatch in my experience can be faster than Splunk
 for large amounts of log data.
 -I would recommend a dashboard and some alerts to track important metrics
 
-### Containerization
+### Containerization  (works ✅)
 
 After building the application, a jar file is generated. Use this command to build docker image from the jar file.
 
@@ -41,7 +41,7 @@ Run the docker image with
 `docker run -p 8080:8080 demo-app
 `
 
-### Kubernetes: Run with MiniCube
+### Kubernetes: Run with MiniCube (not working 😞)
 
 Kubernetes setup is not currently working.  I have documented my steps so far here.
 
@@ -91,3 +91,11 @@ Get Node Port from this command
 Go to this URL to view app
 
 `http://<minikube-ip>:<node-port>`
+
+### CI/CD 
+
+See docs folder for CI/CD Pipeline design.
+
+### App Integration
+
+Refer to https://github.com/PhilipDodson2017/clientRepo.  Run this separate CLI to test this application.
