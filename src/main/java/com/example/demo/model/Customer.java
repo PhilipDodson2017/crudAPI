@@ -28,6 +28,9 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
+    public Customer() {
+    }
+
 
     public Long getId() {
         return id;

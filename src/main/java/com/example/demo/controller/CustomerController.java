@@ -2,8 +2,11 @@ package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +16,7 @@ import com.example.demo.repository.CustomerRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,5 +50,37 @@ public class CustomerController {
         List<Customer> customers = customerRepository.findAll();
         logger.debug("Number of customers fetched: {}", customers.size());
         return ResponseEntity.ok(customers);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customerDetails) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(id);
+
+        if (optionalCustomer.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        Customer existingCustomer = optionalCustomer.get();
+        existingCustomer.setFirstName(customerDetails.getFirstName());
+        existingCustomer.setMiddleName(customerDetails.getMiddleName());
+        existingCustomer.setLastName(customerDetails.getLastName());
+        existingCustomer.setEmailAddress(customerDetails.getEmailAddress());
+        existingCustomer.setPhoneNumber(customerDetails.getPhoneNumber());
+
+        Customer updatedCustomer = customerRepository.save(existingCustomer);
+
+        return ResponseEntity.ok(updatedCustomer);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
+        Optional<Customer> optionalCustomer = customerRepository.findById(id);
+
+        if (optionalCustomer.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        customerRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
