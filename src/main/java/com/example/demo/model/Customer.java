@@ -18,6 +18,17 @@ public class Customer {
     private String emailAddress;
     private String phoneNumber;
 
+    // Constructor with all fields
+    public Customer(Long id, String firstName, String middleName, String lastName, String emailAddress, String phoneNumber) {
+        this.id = id;
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+    }
+
+
     public Long getId() {
         return id;
     }
