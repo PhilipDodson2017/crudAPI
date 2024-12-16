@@ -36,3 +36,58 @@ After building the application, a jar file is generated. Use this command to bui
 
 `docker build -t demo-app .
 `
+
+Run the docker image with
+`docker run -p 8080:8080 demo-app
+`
+
+### Kubernetes: Run with MiniCube
+
+Kubernetes setup is not currently working.  I have documented my steps so far here.
+
+With Minicube installed, run
+
+`minikube start
+`
+
+Once it has finished starting, you can check status with 
+
+`minikube status
+`
+
+Verify kubectl can connect to Minikube
+
+`kubectl get nodes
+`
+
+Start MiniKube tunnel to simulate load balancer.
+
+`minikube tunnel`
+
+Ideally, we could deploy by applying the YAML Files but this did not work for me:
+
+`kubectl apply -f kubernetes/deployment.yml`
+
+`kubectl apply -f kubernetes/service.yml`
+
+`kubectl apply -f kubernetes/ingress.yml  # Optional`
+
+Instead of deploying with yaml files, run the image via command line:
+
+`kubectl run hello-demo-app --image=demo-app --image-pull-policy=Never`
+
+Create service 
+
+ `kubectl expose pod hello-demo-app --type=NodePort --port=8080 --target-port=8080`
+
+ Get minikube ip
+
+ `minikube ip`
+
+Get Node Port from this command
+
+`kubectl get svc`
+
+Go to this URL to view app
+
+`http://<minikube-ip>:<node-port>`

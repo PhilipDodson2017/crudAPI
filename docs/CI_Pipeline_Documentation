@@ -1,0 +1,27 @@
+Continuous Integration Pipeline
+
+1. Build
+-Build the application using a tool such as Maven
+-Run unit tests and determine code coverage
+-Use tools like SonarQube for code analysis
+-Use a quality gate here to fail if code coverage is below a designated threshold such as 80%.  
+-Consider enforcing SonarQube findings for code quality beyond code coverage.
+
+2. Security scans
+-Analyze code with tools like Mend and Checkmarx to catch 
+any security risks.  If detected, fail the build.
+
+3. Shift-left checks 
+-Ensure proper configurations to speed up development cycles
+
+4. Dockerize
+-Build docker image for the application
+-Push docker image to container registry
+
+5. Deploy the application to an ephemeral test environment for running mocked integration/acceptance tests.
+-While you could just go ahead test in normal environments like dev or qa, this introduces issues such as contention when multiple devs are working.  Therefore we should spin up an ephemeral environment to run this image in.
+
+6. Deploy to shared non-prod environments.
+-Once mocked tests have passed, it is safe to deploy to shared testing environments.
+
+7. Once the pipeline is complete, allow the PR to be merged if approvals are received.

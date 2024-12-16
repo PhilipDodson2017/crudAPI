@@ -1,0 +1,10 @@
+Continuous Deployment Pipeline
+
+1. Complete steps 1-6 from CI Pipeline.  Since this is a deployment 
+Pipeline, the shift-left checks will also include any
+special checks needed for Prod deployments.
+
+2.  Gather any approvals needed before production deployment.
+
+3.  Production canary deployment.  Provides a manual rollback option during deployment plus automatically rolls back
+if error threshold is too high.  Feature flags may also be used to further reduce risk.
